@@ -1,6 +1,7 @@
 
 import { TImage, TLink } from "@/types";
 import Link from "next/link";
+import StrapiImage from "./strapi-image";
 
 export type IHeroSection={
    id: number;
@@ -30,25 +31,22 @@ const styles = {
 const HeroSection = ({ data }: IHeroSectionProps ) => {
   if(!data) return null;
 
-  const {heading, subHeading, link} =data;
+  const {heading, subHeading, link, image} =data;
 
-  console.log("✅ Hero Section");
-  console.dir(data, { depth: null });
+  // console.log("✅ Hero Section");
+  // console.dir(data, { depth: null });
 
 
   return (
     <header className={styles.header} >
-      <img
-         alt="Background"
-         className={styles.backgroundImage}
-         height={1080}
-         src="https://images.pexels.com/photos/7552374/pexels-photo-7552374.jpeg"
-         style={{
-          aspectRatio:"1920/1080",
-          objectFit:"cover",
-         }}
-         width={1920}
+      <StrapiImage
+        alt={image.alternativeText ?? "no alternative text"}
+        className="absolute inset-0 object-cover w-full h-full aspect/16:9"
+        src={image.url}
+        height={1080}
+        width={1920}
       />
+
       <div className={styles.overlay}>
         <h1 className={styles.heading}>{heading}</h1>
         <p className={styles.subheading}>{subHeading}</p>
