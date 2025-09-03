@@ -1,15 +1,12 @@
 
-import { Button } from "@/components/ui/button";
+import HeroSection, { IHeroSection } from "@/components/custom/hero-section";
 import qs from "qs";
-
 /**
  * 
  http://localhost:1337/api/home-page?populate[blocks][on][layout.hero-section][populate][image][fields][0]=url&populate[blocks][on][layout.hero-section][populate][image][fields][1]=alternativeText&populate[blocks][on][layout.hero-section][populate][link][populate]=true
  
  * 
  */
-
- 
 
 const homePageQuery =qs.stringify({
   populate:{
@@ -37,8 +34,7 @@ async function getStarapiData(path:string){
     const url =new URL(path, baseUrl);
     url.search =homePageQuery;
 
-
-     console.log("1.url.href:", url.href);
+    console.log("1.url.href:", url.href);
 
     const response = await fetch(url.href);
     const data =await response.json();
@@ -55,27 +51,19 @@ async function getStarapiData(path:string){
 interface HomePage {
   title: string;
   description: string;
+  blocks: [IHeroSection];
 }
 
-
-
 export default async function Home() {
-  const strapiData =await getStarapiData("/api/home-page");
-
-  const { title, description } = strapiData.data as HomePage;
+  const strapiData =await getStarapiData("/api/home-page");  
+  console.dir(strapiData.data, {data:null});
+  const { blocks } = strapiData.data as HomePage;
 
 
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      
-      <h1 className="text-5xl font-bold">{title}</h1>
-      <p className="text-xl mt-4">{description}</p>
-
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Button>Our Cool Button</Button>
-      </main>
-      
-    </div>
+   <main>
+     <HeroSection data={blocks[0] } />     
+    </main>
   );
 }
 
