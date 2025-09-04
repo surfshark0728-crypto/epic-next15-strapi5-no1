@@ -37,12 +37,15 @@ async function getHomePageData(): Promise<TStrapiResponse<THomePage>> {
 
     const url = new URL("/api/home-page", baseUrl);
     url.search = query;
+    //로딩 테스트
+    //await new Promise(resolve => setTimeout(resolve, 6000));
     return api.get<THomePage>(url.href);
 }
 
 
 
 async function getGlobalData():Promise<TStrapiResponse<TGlobal>> {
+    //throw new Error("Test error");
     const query=qs.stringify({
         populate:[
             "header.logoText",
@@ -53,7 +56,7 @@ async function getGlobalData():Promise<TStrapiResponse<TGlobal>> {
     })
     const url = new URL("/api/global", baseUrl);
     url.search = query;            
-    console.log(" ✅ getGlobalData Strapi URL", url.href);
+    //console.log(" ✅ getGlobalData Strapi URL", url.href);
     return api.get<TGlobal>(url.href);
 }
 

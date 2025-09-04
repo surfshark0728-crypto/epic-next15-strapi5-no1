@@ -35,10 +35,12 @@ export default async function Home() {
   const data =validateApiResponse(homePageData, "Home Page");
   const { blocks } = data as HomePage;
 
+
   return (
     <main>
-      {blocks.map((block, index) => blockRenderer(block, index))}
+      {blocks && blocks.map((block, index) => blockRenderer(block, index))}
     </main>
   );
+  
 }
 
