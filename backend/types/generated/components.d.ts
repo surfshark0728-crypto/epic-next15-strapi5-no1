@@ -38,6 +38,29 @@ export interface LayoutFeaturesSection extends Struct.ComponentSchema {
   };
 }
 
+export interface LayoutFooter extends Struct.ComponentSchema {
+  collectionName: 'components_layout_footers';
+  info: {
+    displayName: 'Footer';
+  };
+  attributes: {
+    logoText: Schema.Attribute.Component<'components.link', false>;
+    socialLink: Schema.Attribute.Component<'components.link', true>;
+    text: Schema.Attribute.Text;
+  };
+}
+
+export interface LayoutHeader extends Struct.ComponentSchema {
+  collectionName: 'components_layout_headers';
+  info: {
+    displayName: 'Header';
+  };
+  attributes: {
+    ctaButton: Schema.Attribute.Component<'components.link', false>;
+    logoText: Schema.Attribute.Component<'components.link', false>;
+  };
+}
+
 export interface LayoutHeroSection extends Struct.ComponentSchema {
   collectionName: 'components_layout_hero_sections';
   info: {
@@ -57,6 +80,8 @@ declare module '@strapi/strapi' {
       'components.feature': ComponentsFeature;
       'components.link': ComponentsLink;
       'layout.features-section': LayoutFeaturesSection;
+      'layout.footer': LayoutFooter;
+      'layout.header': LayoutHeader;
       'layout.hero-section': LayoutHeroSection;
     }
   }

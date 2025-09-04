@@ -3,7 +3,7 @@ import { TImage, TLink } from "@/types";
 import Link from "next/link";
 import StrapiImage from "./strapi-image";
 
-export type IHeroSection={
+export type IHeroSectionType={
    id: number;
    documentId: string;
    __component: string;
@@ -12,8 +12,8 @@ export type IHeroSection={
    image: TImage;
    link: TLink;
 }
- interface IHeroSectionProps {
-  readonly data: IHeroSection  
+export interface IHeroSectionProps {
+  readonly data: IHeroSectionType;  
 }
 
 const styles = {
