@@ -14,7 +14,7 @@
 /backend-strapi-cms/node_modules
 /frontend-nextjs/node_modules
 
-
+##
 .pnp.*
 .yarn/*
 !.yarn/patches
