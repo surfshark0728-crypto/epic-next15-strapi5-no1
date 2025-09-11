@@ -12,6 +12,11 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { actions } from "@/data/actions";
+import { useActionState } from "react";
+import { FormState } from "@/data/validation/auth";
+import { ZodErrors } from "../custom/zod-errors";
+
 
 const styles = {
   container: "w-full max-w-md",
@@ -25,10 +30,23 @@ const styles = {
   link: "ml-2 text-pink-500",
 };
 
+const INITIAL_STATE: FormState = {
+  success: false,
+  message: undefined,
+  strapiErrors: null,
+  zodErrors: null,
+};
+
 const SignupForm = () => {
+
+  const [formState, formAction] =useActionState(actions.auth.registerUserAction,INITIAL_STATE);
+  console.log(" ✅✅✅✅✅ SignupForm formState", formState);  
+
+  
   return (
     <div className="w-full max-w-md">
-        <form>
+        <form action={formAction} >
+
             <Card>
                 <CardHeader className="space-y-1">
                     <CardTitle className="text-3xl font-bold flex items-center justify-center text-pink-500">회원가입</CardTitle>
@@ -44,7 +62,9 @@ const SignupForm = () => {
                             name="username"
                             type="text"
                             placeholder="아이디"
+                            defaultValue={formState?.data?.username || ""}
                         />
+                        <ZodErrors error={formState?.zodErrors?.username} />
                     </div>
                     <div className={styles.fieldGroup}>
                         <Label htmlFor="email">이메일</Label>
@@ -53,8 +73,10 @@ const SignupForm = () => {
                             name="email"
                             type="email"
                             placeholder="name@example.com"
+                            defaultValue={formState?.data?.email || ""}
                         />
-                        </div>
+                        <ZodErrors error={formState?.zodErrors?.email} />
+                    </div>
                     <div className={styles.fieldGroup}>
                         <Label htmlFor="password">비밀번호</Label>
                         <Input
@@ -62,17 +84,21 @@ const SignupForm = () => {
                             name="password"
                             type="password"
                             placeholder="비밀번호"
+                            defaultValue={formState?.data?.password || ""}
                         />
+                        <ZodErrors error={formState?.zodErrors?.password} />
                     </div>
                     
                     <div className={styles.fieldGroup}>
-                        <Label htmlFor="passwordConfirm">비밀번호 확인</Label>
+                        <Label htmlFor="confirmPassword">비밀번호 확인</Label>
                         <Input
-                            id="passwordConfirm"    
-                            name="passwordConfirm"
+                            id="confirmPassword"    
+                            name="confirmPassword"
                             type="password"
                             placeholder="비밀번호 확인"
+                            defaultValue={formState?.data?.confirmPassword || ""}
                         />
+                        <ZodErrors error={formState?.zodErrors?.confirmPassword} />
                     </div>
 
                 </CardContent>

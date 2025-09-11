@@ -1,5 +1,4 @@
 import { getStrapiURL } from "@/lib/utils";
-import { get } from "http";
 import Image from "next/image";
 
 
