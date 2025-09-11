@@ -16,6 +16,8 @@ import { actions } from "@/data/actions";
 import { useActionState } from "react";
 import { FormState } from "@/data/validation/auth";
 import { ZodErrors } from "../custom/zod-errors";
+import { StrapiErrors } from "../custom/strapi-errors";
+import { SubmitButton } from "../custom/submit-button";
 
 
 const styles = {
@@ -40,7 +42,7 @@ const INITIAL_STATE: FormState = {
 const SignupForm = () => {
 
   const [formState, formAction] =useActionState(actions.auth.registerUserAction,INITIAL_STATE);
-  console.log(" ✅✅✅✅✅ SignupForm formState", formState);  
+  //console.log(" ✅✅✅✅✅ SignupForm formState", formState);  
 
   
   return (
@@ -102,8 +104,9 @@ const SignupForm = () => {
                     </div>
 
                 </CardContent>
-                <CardFooter className={styles.footer}>
-                  <Button className={styles.button}>회원가입</Button>
+                <CardFooter className={styles.footer}>                  
+                  <SubmitButton className="w-full" text="회원가입" loadingText="회원가입 중" />                  
+                  <StrapiErrors error={formState?.strapiErrors} />
                 </CardFooter>
                 </Card>
                 <div className={styles.prompt}>
