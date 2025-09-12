@@ -12,11 +12,29 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { FormState } from "@/data/validation/auth";
+import { actions } from "@/data/actions";
+import { useActionState } from "react";
+import { ZodErrors } from "../custom/zod-errors";
+import { SubmitButton } from "../custom/submit-button";
+import { StrapiErrors } from "../custom/strapi-errors";
+
+
+const INITIAL_STATE: FormState = {
+  success: false,
+  message: undefined,
+  strapiErrors: null,
+  zodErrors: null,
+};
 
 function SigninForm() {
+
+  const [formState, formAction] = useActionState(actions.auth.loginUserAction, INITIAL_STATE);
+
+
   return (
     <div className="w-full max-w-md">
-      <form>
+      <form action={formAction} >
         <Card>
           <CardHeader className="space-y-1">
             <CardTitle className="text-3xl font-bold text-pink-500">로그인</CardTitle>
@@ -32,7 +50,9 @@ function SigninForm() {
                 name="identifier"
                 type="text"
                 placeholder="아이디 or 이메일"
+                defaultValue={formState?.data?.identifier || ""}
               />
+              <ZodErrors error={formState?.zodErrors?.identifier} />
             </div>
             <div className="space-y-2">
               <Label htmlFor="password">비밀번호</Label>
@@ -41,11 +61,18 @@ function SigninForm() {
                 name="password"
                 type="password"
                 placeholder="비밀번호"
+                defaultValue={formState?.data?.password || ""}
               />
+              <ZodErrors error={formState?.zodErrors?.password} />
             </div>
           </CardContent>
           <CardFooter className="flex flex-col">
-            <Button className="w-full">로그인</Button>
+            <SubmitButton 
+             className="w-full"
+             text="로그인" loadingText="로그인 중"
+           />
+           <StrapiErrors error={formState?.strapiErrors} />
+            
           </CardFooter>
         </Card>
         <div className="mt-4 text-center text-sm">

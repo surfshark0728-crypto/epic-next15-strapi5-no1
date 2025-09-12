@@ -1,6 +1,8 @@
 import { getStrapiURL } from "@/lib/utils";
 import type { TStrapiResponse, TImage } from "@/types";
 
+import { registerUserAction, getAuthTokenAction, logoutUserAction } from "@/data/actions/auth";
+
 // 회원가입 시 필요한 데이터 타입 정의
 type TRegisterUser = {
   username: string;
@@ -104,3 +106,63 @@ export async function loginUserService(
     throw error;
   }
 }
+
+
+
+export async function getUserMeService(): Promise<TStrapiResponse<TAuthUser>> {
+  //const authToken = await actions.auth.getAuthTokenAction();
+  const authToken = await getAuthTokenAction();
+
+  if (!authToken)
+    return { success: false, data: undefined, error: undefined, status: 401 };
+
+  const url = new URL("/api/users/me", baseUrl); 
+
+  try {
+    const response = await fetch(url.href, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${authToken}`,
+      },
+    });
+    const data = await response.json();
+    if (data.error)
+      return {
+        success: false,
+        data: undefined,
+        error: data.error,
+        status: response.status,
+      };
+    return {
+      success: true,
+      data: data,
+      error: undefined,
+      status: response.status,
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      success: false,
+      data: undefined,
+      error: {
+        status: 500,
+        name: "NetworkError",
+        message:
+          error instanceof Error
+            ? error.message
+            : "An unexpected error occurred",
+        details: {},
+      },
+      status: 500,
+    };
+  }
+}
+
+
+
+
+
+
+
+

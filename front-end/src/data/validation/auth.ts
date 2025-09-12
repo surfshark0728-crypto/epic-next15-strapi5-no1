@@ -3,7 +3,7 @@ import {z} from 'zod';
 
 export const SigninFormSchema =z.object({
     identifier:z.string().min(3,"사용자 이름 또는 이메일은 최소 3자 이상이어야 합니다."),
-    password: z.string().min(6, "비밀번호는 최소 4자 이상이어야 합니다.").max(100, "비밀번호는 100자 이내여야 합니다."),
+    password: z.string().min(4, "비밀번호는 최소 4자 이상이어야 합니다.").max(100, "비밀번호는 100자 이내여야 합니다."),
 });
 
 export const SignupFormSchema = z.object({
