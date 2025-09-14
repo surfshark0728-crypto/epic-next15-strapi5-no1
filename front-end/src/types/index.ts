@@ -97,6 +97,7 @@ export type TAuthUser = {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  image?: TImage;
 };
 
 export type TStrapiResponse<T = null> = {

@@ -1,7 +1,6 @@
 import { getStrapiURL } from "@/lib/utils";
 import type { TStrapiResponse, TImage } from "@/types";
 
-import { registerUserAction, getAuthTokenAction, logoutUserAction } from "@/data/actions/auth";
 
 // 회원가입 시 필요한 데이터 타입 정의
 type TRegisterUser = {
@@ -109,9 +108,8 @@ export async function loginUserService(
 
 
 
-export async function getUserMeService(): Promise<TStrapiResponse<TAuthUser>> {
-  //const authToken = await actions.auth.getAuthTokenAction();
-  const authToken = await getAuthTokenAction();
+export async function getUserMeService(authToken: string): Promise<TStrapiResponse<TAuthUser>> {
+ // const authToken = await actions.auth.getAuthTokenAction();
 
   if (!authToken)
     return { success: false, data: undefined, error: undefined, status: 401 };

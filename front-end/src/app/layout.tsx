@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
-import Header from "@/components/custom/header";
 import Footer from "@/components/custom/footer";
+import { Header } from "@/components/custom/header";
 
 
 

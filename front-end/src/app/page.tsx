@@ -1,9 +1,9 @@
 import FeaturesSection, {  IFeaturesSectionType } from "@/components/custom/features-section";
-import HeroSection, {  IHeroSectionType } from "@/components/custom/hero-section";
+import HeroSection, {  THeroSectionType } from "@/components/custom/hero-section";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
 
-export type TBlocks = IHeroSectionType | IFeaturesSectionType;
+export type TBlocks = THeroSectionType | IFeaturesSectionType;
 
 interface HomePage {
   title: string;
@@ -17,7 +17,7 @@ function blockRenderer(block: TBlocks , index: number) {
   switch (block.__component) {
     case "layout.hero-section":
       if (index !== 0) return null;
-      return <HeroSection key={index} data={block as IHeroSectionType} />;
+      return <HeroSection key={index} data={block as THeroSectionType} />;
     case "layout.features-section":
       //console.log("Sections data:", block);
       return (
@@ -33,6 +33,7 @@ function blockRenderer(block: TBlocks , index: number) {
 export default async function Home() {
   const homePageData = await loaders.getHomePageData();
   const data =validateApiResponse(homePageData, "Home Page");
+  console.log("Home page======================>", data);
   const { blocks } = data as HomePage;
 
 

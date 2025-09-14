@@ -170,30 +170,122 @@ export async function apiRequest<T = unknown, P = Record<string, unknown>>(
  * // 인증 요청
  * const userProfile = await api.get<TUser>('/api/users/me', { authToken: 'your-token' });
  */
+
 export const api = {
+  /**
+   * GET 요청 (데이터 조회)
+   *
+   * @param url - API 요청 URL
+   * @param options - 요청 옵션
+   *   - timeoutMs?: number (요청 타임아웃, 기본 8000ms)
+   *   - authToken?: string (인증 토큰, 있으면 Bearer 추가됨)
+   *
+   * 사용 예시:
+   * ```ts
+   * // 공용 데이터 조회
+   * const homePage = await api.get<THomePage>("/api/home-page");
+   *
+   * // 인증이 필요한 경우
+   * const profile = await api.get<TUser>("/api/users/me", { authToken });
+   * ```
+   */
   get: <T>(
     url: string,
     options: { timeoutMs?: number; authToken?: string } = {}
   ) => apiRequest<T>(url, { method: "GET", ...options }),
 
+  /**
+   * POST 요청 (데이터 생성)
+   *
+   * @param url - API 요청 URL
+   * @param payload - 요청 body (생성할 데이터)
+   * @param options - 요청 옵션
+   *   - timeoutMs?: number (요청 타임아웃, 기본 8000ms)
+   *   - authToken?: string (인증 토큰, 있으면 Bearer 추가됨)
+   *
+   * 사용 예시:
+   * ```ts
+   * // 회원가입 요청
+   * const newUser = await api.post<TUser, { username: string; email: string; password: string }>(
+   *   "/api/auth/local/register",
+   *   { username: "홍길동", email: "test@test.com", password: "123456" }
+   * );
+   * ```
+   */
   post: <T, P = Record<string, unknown>>(
     url: string,
     payload: P,
     options: { timeoutMs?: number; authToken?: string } = {}
   ) => apiRequest<T, P>(url, { method: "POST", payload, ...options }),
 
+  /**
+   * PUT 요청 (데이터 전체 수정)
+   *
+   * @param url - API 요청 URL
+   * @param payload - 요청 body (수정할 데이터 전체)
+   * @param options - 요청 옵션
+   *   - timeoutMs?: number (요청 타임아웃, 기본 8000ms)
+   *   - authToken?: string (인증 토큰, 있으면 Bearer 추가됨)
+   *
+   * 사용 예시:
+   * ```ts
+   * // 사용자 프로필 전체 수정
+   * const updatedUser = await api.put<TUser, { firstName: string; lastName: string; bio: string }>(
+   *   `/api/users/${userId}`,
+   *   { firstName: "길동", lastName: "홍", bio: "소개글입니다." },
+   *   { authToken }
+   * );
+   * ```
+   */
   put: <T, P = Record<string, unknown>>(
     url: string,
     payload: P,
     options: { timeoutMs?: number; authToken?: string } = {}
   ) => apiRequest<T, P>(url, { method: "PUT", payload, ...options }),
 
+  /**
+   * PATCH 요청 (데이터 일부 수정)
+   *
+   * @param url - API 요청 URL
+   * @param payload - 요청 body (수정할 데이터 일부)
+   * @param options - 요청 옵션
+   *   - timeoutMs?: number (요청 타임아웃, 기본 8000ms)
+   *   - authToken?: string (인증 토큰, 있으면 Bearer 추가됨)
+   *
+   * 사용 예시:
+   * ```ts
+   * // 사용자 bio만 수정
+   * const updatedBio = await api.patch<TUser, { bio: string }>(
+   *   `/api/users/${userId}`,
+   *   { bio: "새로운 자기소개입니다." },
+   *   { authToken }
+   * );
+   * ```
+   */
   patch: <T, P = Record<string, unknown>>(
     url: string,
     payload: P,
     options: { timeoutMs?: number; authToken?: string } = {}
   ) => apiRequest<T, P>(url, { method: "PATCH", payload, ...options }),
 
+  /**
+   * DELETE 요청 (데이터 삭제)
+   *
+   * @param url - API 요청 URL
+   * @param options - 요청 옵션
+   *   - timeoutMs?: number (요청 타임아웃, 기본 8000ms)
+   *   - authToken?: string (인증 토큰, 있으면 Bearer 추가됨)
+   *
+   * 사용 예시:
+   * ```ts
+   * // 특정 게시글 삭제
+   * const deleted = await api.delete<boolean>(`/api/posts/${postId}`, { authToken });
+   *
+   * if (deleted.success) {
+   *   console.log("삭제 성공!");
+   * }
+   * ```
+   */
   delete: <T>(
     url: string,
     options: { timeoutMs?: number; authToken?: string } = {}

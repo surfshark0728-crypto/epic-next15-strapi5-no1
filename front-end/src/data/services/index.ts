@@ -1,9 +1,11 @@
-import { registerUserService, loginUserService, getUserMeService } from "./auth";
+import * as authServices from "./auth";
+import * as profileServices from "./profile";
 export const services ={
     auth:{
-        registerUserService,
-        loginUserService,
-        getUserMeService
+       ...authServices
+    },
+    profile:{
+       ...profileServices
     }
 }
 

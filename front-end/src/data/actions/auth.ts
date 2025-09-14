@@ -1,10 +1,11 @@
 "use server";
 import { z } from "zod";
 import { SigninFormSchema, SignupFormSchema, type FormState } from "@/data/validation/auth";
-import { services } from "../services";
-import { isAuthError } from "../services/auth";
+import { services } from "@/data/services";
+import { isAuthError } from "@/data/services/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+import { TAuthUser, TStrapiResponse } from "@/types";
 
 const CookiesConfig = {
   maxAge: 60 * 60 * 24 * 7, // 1 week
@@ -209,6 +210,28 @@ export async function getAuthTokenAction() {
   const authToken = cookieStore.get("jwt")?.value;
   return authToken;
 }
+
+
+// ✅🔖 사용자 정보 가져오기 액션
+export async function getUserMeAction(): Promise<TStrapiResponse<TAuthUser>> {
+  const token = await getAuthTokenAction();
+  if (!token){
+     return {
+      success: false,
+      data: undefined,
+      error: {
+        status: 500,
+        name: "NetworkError",
+        message: "token not found",
+        details: {},
+      },
+      status: 500,
+    };
+  }
+  return services.auth.getUserMeService(token);
+}
+
+
 
 // 로그아웃 액션
 export async function logoutUserAction() {

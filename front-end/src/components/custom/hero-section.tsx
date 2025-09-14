@@ -2,8 +2,9 @@
 import { TImage, TLink } from "@/types";
 import Link from "next/link";
 import StrapiImage from "./strapi-image";
+import { actions } from "@/data/actions";
 
-export type IHeroSectionType={
+export type THeroSectionType={
    id: number;
    documentId: string;
    __component: string;
@@ -13,7 +14,7 @@ export type IHeroSectionType={
    link: TLink;
 }
 export interface IHeroSectionProps {
-  readonly data: IHeroSectionType;  
+  readonly data: THeroSectionType;  
 }
 
 const styles = {
@@ -28,14 +29,16 @@ const styles = {
 };
 
 
-const HeroSection = ({ data }: IHeroSectionProps ) => {
+const HeroSection =async ({ data }: IHeroSectionProps ) => {
   if(!data) return null;
+  //const user =await services.auth.getUserMeService();
+  const user = await actions.auth.getUserMeAction();
+  const userLoggedIn =user.success;
 
   const {heading, subHeading, link, image} =data;
 
   // console.log("✅ Hero Section");
   // console.dir(data, { depth: null });
-
 
   return (
     <header className={styles.header} >
@@ -50,7 +53,16 @@ const HeroSection = ({ data }: IHeroSectionProps ) => {
       <div className={styles.overlay}>
         <h1 className={styles.heading}>{heading}</h1>
         <p className={styles.subheading}>{subHeading}</p>
-        <Link href={link.href} className={styles.button}>{link.label}</Link>
+
+        <Link
+          className={styles.button}
+          href={userLoggedIn ? "/dashboard" : link.href}
+        >
+          {userLoggedIn ? "대시보드" : link.label}
+        </Link>
+
+
+   
       </div>
     </header>
   );

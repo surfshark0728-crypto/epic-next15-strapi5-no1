@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
-import { services } from "@/data/services";
+import { actions } from "./data/actions";
+
 
 // 보호된 라우트 배열 정의
 const protectedRoutes: string[] = ["/dashboard", "/dashboard/*"];
@@ -30,7 +31,7 @@ export async function middleware(request: NextRequest) {
       // 1. 토큰이 존재하고 유효한지 확인
       // 2. 데이터베이스에 사용자가 존재하는지 확인
       // 3. 사용자 계정이 활성 상태인지 확인 (차단/삭제 여부)
-      const userResponse = await services.auth.getUserMeService();
+      const userResponse = await actions.auth.getUserMeAction();
 
       // 사용자 인증 실패 시 로그인 페이지로 리다이렉트
       if (!userResponse.success || !userResponse.data) {
