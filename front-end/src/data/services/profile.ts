@@ -36,3 +36,26 @@ export const updateProfileService = async (
 
   return result;
 };
+
+
+
+//✅ 프로필 이미지 업데이트
+export async function updateProfileImageService(imageId: number):Promise<TStrapiResponse<TAuthUser>>{
+
+  const { authToken, user } = await requireAuthUser();
+
+  const url = new URL(`/api/users/${user.id}`, baseUrl);
+  const payload = { image: imageId };
+
+  const result = await api.put<TAuthUser,  { image: number }>(
+    url.href,
+    payload,
+    { authToken }
+  );
+
+  console.log("✅ 프로필 이미지 업데이트 응답 결과:");
+  console.dir(result, { depth: null });
+
+  return result;
+
+}

@@ -1,4 +1,5 @@
 import ProfileForm from "@/components/forms/profile-form";
+import ProfileImageForm from "@/components/forms/profile-image-form";
 import { actions } from "@/data/actions";
 
 import { validateApiResponse } from "@/lib/error-handler";
@@ -12,9 +13,11 @@ export default async function AccountRoute() {
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-5 gap-4 p-4">
-       Accout Page
+     
+
        <ProfileForm user={userData} className="col-span-3" /> 
-      {/* <ProfileImageForm image={userImage} className="col-span-2" /> */}
+
+       <ProfileImageForm image={userImage} className="col-span-2" /> 
     </div>
   );
 }

@@ -14,14 +14,14 @@
 /backend-strapi-cms/node_modules
 /frontend-nextjs/node_modules
 
-
+##
 .pnp.*
 .yarn/*
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
 !.yarn/versions
-
+#up
 
 # testing
 /coverage

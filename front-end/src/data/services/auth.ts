@@ -1,6 +1,6 @@
 import { getStrapiURL } from "@/lib/utils";
 import type { TStrapiResponse, TImage } from "@/types";
-
+import qs from 'qs';
 
 // 회원가입 시 필요한 데이터 타입 정의
 type TRegisterUser = {
@@ -116,6 +116,16 @@ export async function getUserMeService(authToken: string): Promise<TStrapiRespon
 
   const url = new URL("/api/users/me", baseUrl); 
 
+  url.search = qs.stringify({
+    populate: {
+      image: {
+        fields: ["url", "alternativeText"],
+      },
+    },
+  });
+
+  //console.log("이미지 가져오기 추가 ", url);
+
   try {
     const response = await fetch(url.href, {
       method: "GET",
@@ -132,6 +142,8 @@ export async function getUserMeService(authToken: string): Promise<TStrapiRespon
         error: data.error,
         status: response.status,
       };
+
+    console.log("✅✅✅getUserMeService data", data);  
     return {
       success: true,
       data: data,

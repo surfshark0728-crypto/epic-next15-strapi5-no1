@@ -78,6 +78,14 @@
     "credits": {
       "type": "biginteger",
       "default": "0"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "files"
+      ]
     }
   }
 }
