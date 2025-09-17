@@ -43,9 +43,9 @@ const HeroSection =async ({ data }: IHeroSectionProps ) => {
   return (
     <header className={styles.header} >
       <StrapiImage
-        alt={image.alternativeText ?? "no alternative text"}
+        alt={image?.alternativeText ?? "no alternative text"}
         className="absolute inset-0 object-cover w-full h-full aspect/16:9"
-        src={image.url}
+        src={image?.url}
         height={1080}
         width={1920}
       />

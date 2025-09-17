@@ -4,7 +4,7 @@ import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
 import Footer from "@/components/custom/footer";
 import { Header } from "@/components/custom/header";
-
+import { Toaster } from "@/components/ui/sonner";
 
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -27,6 +27,7 @@ export default async function RootLayout({
   return (
     <html lang="ko">
        <body>
+        <Toaster position="bottom-center" />
         <Header data={globalData?.header} />
         {children}
         <Footer data={globalData?.footer} />
