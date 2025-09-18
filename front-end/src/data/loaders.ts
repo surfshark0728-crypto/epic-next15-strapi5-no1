@@ -1,7 +1,8 @@
 import qs  from  "qs";
-import type { TStrapiResponse, THomePage, TGlobal, TMetaData } from "@/types";
+import type { TStrapiResponse, THomePage, TGlobal, TMetaData, TSummary } from "@/types";
 import {api} from "@/data/data-api";
 import {getStrapiURL} from "@/lib/utils";
+import { safeRequireAuthToken } from "@/lib/auth-helpers";
 
 
 /**
@@ -73,11 +74,41 @@ async function getMetaData():Promise<TStrapiResponse<TMetaData>>{
 }
 
 
+// 요약 목록 가져오기
+async function getSummaries():Promise<TStrapiResponse<TSummary[]>>{ 
+  const {success, data: authToken} = await safeRequireAuthToken();
+  if (!success || !success) throw new Error("You are not authorized");
+
+  const query = qs.stringify({
+    sort: ["createdAt:desc"],
+  });
+
+  const url = new URL("/api/summaries", baseUrl);
+  url.search = query;
+  return api.get<TSummary[]>(url.href, { authToken });
+}
+
+
+// 요약 개별 데이터 가져오기
+async function getSummaryByDocumentId( documentId: string) : Promise<TStrapiResponse<TSummary>>{
+  const {success, data: authToken} = await safeRequireAuthToken();
+  if (!success || !success) throw new Error("You are not authorized");
+
+  const path = `/api/summaries/${documentId}`;
+  const url=new URL(path, baseUrl);
+
+  return api.get<TSummary>(url.href, { authToken });
+}   
+
+
+
 
 export const loaders = {
     getHomePageData,
     getGlobalData,
-    getMetaData
+    getMetaData,
+    getSummaries,
+    getSummaryByDocumentId
 };
 
 

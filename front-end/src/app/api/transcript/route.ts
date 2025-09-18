@@ -38,11 +38,21 @@ export async function POST(req: NextRequest) {
   const videoId = body.videoId;
 
   try{
+    console.log("✅ 자막 가져오기  시작 : videoId", videoId);
+
     const transcriptData =await services.summarize.generateTranscript(videoId);
 
     if(!transcriptData?.fullTranscript){
+      console.log("🤬 번역할 데이터를 찾을 수 없습니다. ");
       throw new Error("번역할 데이터를 찾을 수 없습니다.");
     }
+
+
+    // if(!transcriptData?.fullTranscriptKo){
+    //   console.log("🤬 한국어 번역할 데이터를 찾을 수 없습니다. ");
+    //   throw new Error("번역할 데이터를 찾을 수 없습니다.");
+    // }
+
 
     return new Response(JSON.stringify({data:transcriptData, error:null}));
 
@@ -53,15 +63,5 @@ export async function POST(req: NextRequest) {
     return new Response(JSON.stringify({error:"요청을 처리하는 중에 오류가 발생했습니다."}));
   }
 
-
-
-
-
-
-
-  return new Response(
-    JSON.stringify({ user: auth.data }),
-    { status: 200, headers: { "Content-Type": "application/json" } }
-  );
 }
 

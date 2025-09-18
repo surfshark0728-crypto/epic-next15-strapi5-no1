@@ -76,59 +76,68 @@ const getTranscriptSegments = async (
  */
 export const generateTranscript = async (
   identifier: string
-): Promise<TranscriptData> => {
-  console.log(identifier);
+): Promise<TranscriptData & { fullTranscriptKo?: string; transcriptWithTimeCodesKo?: TranscriptSegment[] }> => {
   try {
-    // youtubei.js 라이브러리 동적 import
     const { Innertube } = await import("youtubei.js");
 
-    // 유튜브 API 클라이언트 생성
-    const youtube = await Innertube.create({
-      lang: "en",        // 언어 설정
-      location: "US",    // 지역 설정
-      retrieve_player: false, // 플레이어 데이터는 불러오지 않음
+    // 영어 클라이언트
+    const youtubeEn = await Innertube.create({
+      lang: "en",
+      location: "US",
+      retrieve_player: false,
     });
 
-    console.log("IDENTIFIER", identifier, "VS", "LCYBVpSB0Wo");
+    // 한국어 클라이언트
+    const youtubeKo = await Innertube.create({
+      lang: "ko",
+      location: "KR",
+      retrieve_player: false,
+    });
 
-    // 비디오 ID 유효성 검증
+    // ID 유효성 체크
     validateIdentifier(identifier);
 
-    // 영상 정보 가져오기
-    const info = await youtube.getInfo(identifier);
+    // 영상 정보 (영문 클라이언트 기준으로 가져옴)
+    const info = await youtubeEn.getInfo(identifier);
 
-    console.log("INFO:", info);
-    if (!info) {
-      throw new Error("동영상 정보를 찾을 수 없습니다.");
-    }
+    if (!info) throw new Error("동영상 정보를 찾을 수 없습니다.");
 
-    // 영상 기본 정보 추출 (제목, videoId, 썸네일)
+    // 기본 정보 추출
     const { title, videoId, thumbnailUrl } = extractBasicInfo(
       info as YouTubeAPIVideoInfo
     );
 
-    // 대본(Transcript) 세그먼트 가져오기
-    const segments = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
+    // 영어 대본
+    const segmentsEn = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
+    const transcriptWithTimeCodes = processTranscriptSegments(segmentsEn);
+    const fullTranscript = segmentsEn.map((s) => s.snippet.text).join(" ");
 
-    // 각 세그먼트를 가공하여 시작/끝/지속시간 포함
-    const transcriptWithTimeCodes = processTranscriptSegments(segments);
+    // 한국어 대본
+    let fullTranscriptKo: string | undefined;
+    let transcriptWithTimeCodesKo: TranscriptSegment[] | undefined;
 
-    // 전체 대본을 한 문장으로 합치기
-    const fullTranscript = segments
-      .map((segment) => segment.snippet.text)
-      .join(" ");
+    try {
+      const infoKo = await youtubeKo.getInfo(identifier);
+      const segmentsKo = await getTranscriptSegments(infoKo as YouTubeAPIVideoInfo);
 
-    // 최종 TranscriptData 반환
+      transcriptWithTimeCodesKo = processTranscriptSegments(segmentsKo);
+      fullTranscriptKo = segmentsKo.map((s) => s.snippet.text).join(" ");
+    } catch (err) {
+      console.warn("⚠️ 한국어 대본을 가져오지 못했습니다:", err);
+    }
+
+    // 최종 반환
     return {
       title,
       videoId,
       thumbnailUrl,
-      fullTranscript,
-      transcriptWithTimeCodes,
+      fullTranscript, // 영어
+      transcriptWithTimeCodes, // 영어 타임코드 포함
+      fullTranscriptKo, // 한국어 (있으면)
+      transcriptWithTimeCodesKo, // 한국어 타임코드 포함 (있으면)
     };
   } catch (error) {
-    // 에러 처리
-    console.error("대본을 가져오는 중 오류가 발생했습니다:", error);
+    console.error("대본을 가져오는 중 오류:", error);
     throw new Error(
       error instanceof Error ? error.message : "대본을 가져오지 못했습니다."
     );

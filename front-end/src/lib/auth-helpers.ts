@@ -77,3 +77,31 @@ export async function safeRequireAuthUser(): Promise<TStrapiResponse<TAuthUser>>
     status: me.status,
   };
 }
+
+
+
+
+export async function safeRequireAuthToken(): Promise<TStrapiResponse<string>> {
+  const token = await getAuthTokenAction();
+
+  if (!token) {
+    return {
+      success: false,
+      data: undefined,
+      error: {
+        status: 401,
+        name: "UnauthorizedError",
+        message: "로그인이 필요합니다.",
+        details: {},
+      },
+      status: 401,
+    };
+  }
+
+  return {
+    success: true,
+    data: token,
+    error: undefined,
+    status: 200,
+  };
+}
