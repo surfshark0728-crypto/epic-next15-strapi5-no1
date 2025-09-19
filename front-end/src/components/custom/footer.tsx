@@ -3,7 +3,7 @@ import type { TFooter } from "@/types";
 import {Logo} from "@/components/custom/logo";
 
 const styles = {
-  footer: "dark bg-gray-900 text-white py-8",
+  footer: "dark bg-gray-900 text-white py-8 ",
   container:
     "container mx-auto px-4 md:px-6 flex flex-col md:flex-row items-center justify-between",
   text: "mt-4 md:mt-0 text-sm text-gray-300",

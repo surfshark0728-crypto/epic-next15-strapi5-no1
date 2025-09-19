@@ -1,4 +1,6 @@
 import YouTubePlayer from "@/components/custom/youtube-player";
+import { SummaryUpdateForm } from "@/components/forms/summary-update-form";
+import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
 import { extractYouTubeID } from "@/lib/utils";
@@ -24,9 +26,11 @@ export default async function SummarySingleRoute({ params }: IPageProps) {
     <div className="h-screen overflow-hidden">
       <div className="h-full grid gap-4 grid-cols-5 p-4">
         <div className="col-span-3 h-full">
-            <pre>Document Id: {documentId}</pre>
-            <pre>{JSON.stringify(summary)}</pre>
-            {/* <SummaryUpdateForm summary={summary}/> */}
+
+
+            {/* <pre>Document Id: {documentId}</pre>
+            <pre>{JSON.stringify(summary)}</pre> */}
+             <SummaryUpdateForm summary={summary}/> 
         </div>
         <div className="col-span-2">
             <div>

@@ -26,10 +26,14 @@ export default async function RootLayout({
 
   return (
     <html lang="ko">
-       <body>
+       <body className="flex flex-col min-h-screen">
         <Toaster position="bottom-center" />
         <Header data={globalData?.header} />
-        {children}
+
+        <main className="flex-grow ">
+          {children}
+        </main>
+                
         <Footer data={globalData?.footer} />
       </body>
     </html>

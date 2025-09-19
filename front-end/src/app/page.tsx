@@ -38,9 +38,9 @@ export default async function Home() {
 
 
   return (
-    <main>
+    <>
       {blocks && blocks.map((block, index) => blockRenderer(block, index))}
-    </main>
+    </>
   );
   
 }
