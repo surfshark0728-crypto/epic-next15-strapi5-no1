@@ -97,33 +97,43 @@ export const generateTranscript = async (
     // ID 유효성 체크
     validateIdentifier(identifier);
 
-    // 영상 정보 (영문 클라이언트 기준으로 가져옴)
+   
+    // 영상 정보  가져옴
     const info = await youtubeEn.getInfo(identifier);
-
     if (!info) throw new Error("동영상 정보를 찾을 수 없습니다.");
 
     // 기본 정보 추출
-    const { title, videoId, thumbnailUrl } = extractBasicInfo(
-      info as YouTubeAPIVideoInfo
-    );
+    const { title, videoId, thumbnailUrl } = extractBasicInfo(info as YouTubeAPIVideoInfo);
 
     // 영어 대본
-    const segmentsEn = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
-    const transcriptWithTimeCodes = processTranscriptSegments(segmentsEn);
-    const fullTranscript = segmentsEn.map((s) => s.snippet.text).join(" ");
+    let fullTranscript: string | undefined;
+    let transcriptWithTimeCodes: TranscriptSegment[] | undefined;
+    try {
+        // 영어 대본
+        const segmentsEn = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
+        transcriptWithTimeCodes = processTranscriptSegments(segmentsEn);
+        fullTranscript = segmentsEn.map((s) => s.snippet.text).join(" ");
+    } catch (error) {
+      fullTranscript="";
+      transcriptWithTimeCodes=[];      
+      console.warn("⚠️ 영어어 대본을 가져오지 못했습니다:", error);
+    }
+
+
+    /////////////////////한국어 /////////////////////
 
     // 한국어 대본
     let fullTranscriptKo: string | undefined;
-    let transcriptWithTimeCodesKo: TranscriptSegment[] | undefined;
-
-    try {
+    let transcriptWithTimeCodesKo: TranscriptSegment[] | undefined;    
+    try {  
       const infoKo = await youtubeKo.getInfo(identifier);
-      const segmentsKo = await getTranscriptSegments(infoKo as YouTubeAPIVideoInfo);
-
+      const segmentsKo = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
       transcriptWithTimeCodesKo = processTranscriptSegments(segmentsKo);
       fullTranscriptKo = segmentsKo.map((s) => s.snippet.text).join(" ");
-    } catch (err) {
-      console.warn("⚠️ 한국어 대본을 가져오지 못했습니다:", err);
+    } catch (error) {
+      fullTranscriptKo="";
+      transcriptWithTimeCodesKo=[];
+      console.warn("⚠️ 한국어 대본을 가져오지 못했습니다:", error);
     }
 
     // 최종 반환

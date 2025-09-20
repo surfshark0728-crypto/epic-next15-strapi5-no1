@@ -261,7 +261,7 @@ export function SimpleEditor({ content }: { content?: string }) {
   }, [content, editor])
 
   return (
-    <div className="simple-editor-wrapper w-full max-w-full h-full max-h-full  ">
+    <div className="simple-editor-wrapper w-full max-w-full h-full max-h-full">
       <EditorContext.Provider value={{ editor }}>
         <Toolbar
           ref={toolbarRef}

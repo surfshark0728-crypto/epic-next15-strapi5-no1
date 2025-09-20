@@ -6,7 +6,7 @@ import { useEffect, useState, forwardRef } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 
-import { useEditor, EditorContent } from "@tiptap/react";
+import { useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 
 // 📝 Markdown ↔ HTML 변환기

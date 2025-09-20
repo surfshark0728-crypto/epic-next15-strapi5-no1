@@ -22,7 +22,7 @@ type ApiOptions<P = Record<string, unknown>> = {
 async function apiWithTimeout(
   input: RequestInfo,
   init: RequestInit = {},
-  timeoutMs = 8000 // 기본 8초
+  timeoutMs = 15000 // 기본 8초 8000, 15초 :15000
 ): Promise<Response> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
