@@ -39,12 +39,14 @@ interface EditorWrapperProps {
   markdown?: string;
   onChange?: (markdown: string) => void;
   className?: string;
+  setContent?: (content: string) => void;
 }
 
 export function TiptapMDEditorWrapper({
   markdown = "",
   onChange,
   className,
+  setContent,
 }: EditorWrapperProps) {
   const [hasError, setHasError] = useState(false);
 
@@ -90,7 +92,9 @@ export function TiptapMDEditorWrapper({
 
   return (
     <div className="min-h-[350px] rounded-md border p-4 ">
-      {editor ? <SimpleEditor content={editor.getHTML()} /> : <LoadingFallback />}
+      {editor ? <SimpleEditor content={editor.getHTML()}
+                 onChange={(content) => setContent?.(content)}
+      /> : <LoadingFallback />}
     </div>
   );
 }

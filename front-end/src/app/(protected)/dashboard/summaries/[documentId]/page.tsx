@@ -23,9 +23,9 @@ export default async function SummarySingleRoute({ params }: IPageProps) {
 
 
   return (
-    <div className="h-screen overflow-hidden">
+    <div>
       <div className="h-full grid gap-4 grid-cols-5 p-4">
-        <div className="col-span-3 h-full">
+        <div className="col-span-3">
 
 
             {/* <pre>Document Id: {documentId}</pre>

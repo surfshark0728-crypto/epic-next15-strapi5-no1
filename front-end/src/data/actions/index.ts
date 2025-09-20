@@ -1,6 +1,7 @@
 // src/data/actions/index.ts
 import * as authActions from "./auth";
 import * as profileActions from "./profile";
+import * as summaryActions from "./summary";
 
 export const actions = {
   auth: {
@@ -9,4 +10,7 @@ export const actions = {
   profile: {
     ...profileActions,
   },
+  summary:{
+    ...summaryActions
+  }
 };

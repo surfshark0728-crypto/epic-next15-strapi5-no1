@@ -193,7 +193,7 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor({ content }: { content?: string }) {
+export function SimpleEditor({ content, onChange }: { content?: string, onChange?: (content: string) => void }) {
   const isMobile = useIsMobile()
   const { height } = useWindowSize()
   const [mobileView, setMobileView] = React.useState<
@@ -240,6 +240,11 @@ export function SimpleEditor({ content }: { content?: string }) {
       }),
     ],
     content, // 초기 렌더링 시 content 반영
+    onUpdate: ({ editor }) => {
+      onChange?.(editor.getHTML()) // ✅ 부모에 값 전달
+    },
+  
+
   })
 
   const rect = useCursorVisibility({
@@ -252,6 +257,29 @@ export function SimpleEditor({ content }: { content?: string }) {
       setMobileView("main")
     }
   }, [isMobile, mobileView])
+
+  
+  // 🔥 트랜잭션/포맷팅도 감지해서 부모에 반영
+  React.useEffect(() => {
+    if (!editor) return;
+
+    const handler = () => {
+      // HTML로 전달 (부모는 DB 저장 등에 사용)
+      onChange?.(editor.getHTML());
+      // 필요하다면 plain text도 가능: editor.getText()
+      // JSON 구조도 가능: editor.getJSON()
+    };
+
+    // ✅ update 이벤트 하나면 transaction, selectionUpdate 모두 커버
+    editor.on("update", handler);
+
+    return () => {
+      editor.off("update", handler);
+    };
+  }, [editor, onChange]);
+
+
+
 
    // ✅ 외부에서 content가 바뀌면 editor 내용 갱신
   React.useEffect(() => {
@@ -291,7 +319,7 @@ export function SimpleEditor({ content }: { content?: string }) {
         <EditorContent
           editor={editor}
           role="presentation"
-          className="simple-editor-content"
+          className="simple-editor-content"        
         />
       </EditorContext.Provider>
     </div>

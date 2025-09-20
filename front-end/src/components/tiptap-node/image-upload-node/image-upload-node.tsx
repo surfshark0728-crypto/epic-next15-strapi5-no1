@@ -548,6 +548,8 @@ export const ImageUploadNode: React.FC<NodeViewProps> = (props) => {
         multiple={limit > 1}
         onChange={handleChange}
         onClick={(e: React.MouseEvent<HTMLInputElement>) => e.stopPropagation()}
+        title="Select an image file"
+        placeholder="Choose an image file"
       />
     </NodeViewWrapper>
   )

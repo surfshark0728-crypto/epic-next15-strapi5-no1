@@ -74,7 +74,7 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           {/* 다시 시도 버튼 */}
           <button
             onClick={reset}
-            className="min-w-[160px] bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
+            className="cursor-pointer min-w-[160px] bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded-lg font-medium transition-colors flex items-center gap-2"
           >
             <RefreshCw className="w-4 h-4" />
             다시 시도
@@ -83,7 +83,9 @@ export default function ErrorPage({ error, reset }: ErrorPageProps) {
           {/* 이전 페이지로 돌아가기 버튼 */}
           <button
             onClick={() => router.back()}
-            className="min-w-[160px] border-red-600 text-red-600 hover:bg-red-50 px-6 py-3 rounded-lg font-medium border-2 transition-colors inline-flex items-center gap-2"
+            className="min-w-[160px] border-red-600 text-red-600 hover:bg-red-50 px-6 py-3 rounded-lg font-medium border-2 
+            cursor-pointer
+            transition-colors inline-flex items-center gap-2"
           >
             <ArrowLeft className="w-4 h-4" />
             뒤로 가기
