@@ -3,6 +3,7 @@ import { TSummary } from "@/types";
 import Markdown from "react-markdown";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { CardFooter } from "../tiptap-ui-primitive/card";
 
 interface ILinkCardProps {
   summary: TSummary;
@@ -28,7 +29,7 @@ const styles = {
 function LinkCard({ summary }: Readonly<ILinkCardProps>) {
   const { documentId, title, content } = summary;
   return (
-    <Link href={`/dashboard/summaries/${documentId}`}>
+    <div>    
       <Card className="relative hover:shadow-lg transition-shadow duration-200 cursor-pointer border border-gray-200">
         <CardHeader className="pb-3">
           <CardTitle className="text-lg font-semibold text-pink-600 leading-tight line-clamp-2">
@@ -41,10 +42,15 @@ function LinkCard({ summary }: Readonly<ILinkCardProps>) {
             <Markdown>{content.slice(0, 150)}</Markdown>
             </div>
             }
-          <p className="text-pink-500 font-medium text-xs mt-3 !cursor-pointer">상세보기 →</p>
+
         </CardContent>
-      </Card>
-    </Link>
+        <CardFooter className="px-6">
+          <Link href={`/dashboard/summaries/${documentId}`}>
+              <p className="text-pink-500 font-medium text-xs mt-3 !cursor-pointer">상세보기 →</p>
+          </Link>
+        </CardFooter>
+      </Card>    
+    </div>
   );
 }
 

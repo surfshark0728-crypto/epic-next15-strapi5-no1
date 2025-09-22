@@ -143,7 +143,7 @@ export async function getUserMeService(authToken: string): Promise<TStrapiRespon
         status: response.status,
       };
 
-    console.log("✅✅✅getUserMeService data", data);  
+    //console.log("✅✅✅getUserMeService data", data);  
     return {
       success: true,
       data: data,

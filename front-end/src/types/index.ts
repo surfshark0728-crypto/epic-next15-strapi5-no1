@@ -1,5 +1,6 @@
 export interface BaseParams {
   [key: string]: string | string[] | undefined;
+  query?: string;
 }
 
 export interface RouteParams extends BaseParams {
