@@ -50,6 +50,7 @@ export const registerUserAction = async (prevState: FormState, formData: FormDat
   // confirmPassword 제외하고 Strapi 서버로 보낼 payload 생성
   const { confirmPassword, ...strapiPayload } = validatedFields.data;
 
+  console.log("confirmPassword 제외하고 Strapi 서버로 보낼 payload 생성 :", confirmPassword);
   // Strapi API를 호출하여 회원가입 요청
   const responseData = await services.auth.registerUserService(strapiPayload);
 

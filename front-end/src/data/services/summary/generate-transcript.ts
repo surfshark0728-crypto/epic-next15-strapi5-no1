@@ -127,7 +127,7 @@ export const generateTranscript = async (
     let transcriptWithTimeCodesKo: TranscriptSegment[] | undefined;    
     try {  
       const infoKo = await youtubeKo.getInfo(identifier);
-      const segmentsKo = await getTranscriptSegments(info as YouTubeAPIVideoInfo);
+      const segmentsKo = await getTranscriptSegments(infoKo as YouTubeAPIVideoInfo);
       transcriptWithTimeCodesKo = processTranscriptSegments(segmentsKo);
       fullTranscriptKo = segmentsKo.map((s) => s.snippet.text).join(" ");
     } catch (error) {

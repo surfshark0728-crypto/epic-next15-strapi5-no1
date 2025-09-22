@@ -88,9 +88,9 @@ export async function updateProfileImageAction(
   
   try {
     
-    console.log("프로필 이미지 업데이트 작업");
-    const { authToken, user } = await requireAuthUser();
 
+    const { authToken, user } = await requireAuthUser();
+    console.log("프로필 이미지 업데이트 작업:", authToken);
 
     const currentImageId = user.image?.id;
 
@@ -189,10 +189,10 @@ export async function updateProfileImageAction(
     }
     
 
-  } catch (error: any) {
+  } catch (error) {
     return {
       success: false,
-      message: error.message ?? "인증 오류가 발생했습니다.",
+      message:  "인증 오류가 발생했습니다.:"+ error,
       strapiErrors: null,
       zodErrors: null,
       data: prevState.data,

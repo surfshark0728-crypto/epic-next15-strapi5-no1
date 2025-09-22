@@ -34,7 +34,7 @@ export default async function Home() {
   const homePageData = await loaders.getHomePageData();
   const data =validateApiResponse(homePageData, "Home Page");
   console.log("Home page======================>", data);
-  const { blocks } = data as HomePage;
+  const { blocks } = data as unknown as HomePage;
 
 
   return (

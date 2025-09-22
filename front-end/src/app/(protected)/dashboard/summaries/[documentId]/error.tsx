@@ -3,33 +3,33 @@
 import { useRouter } from "next/navigation";
 import { RefreshCw, AlertTriangle, ArrowLeft } from "lucide-react";
 
-const styles = {
-  container: "min-h-[calc(100vh-200px)] flex items-center justify-center p-4",
-  content:
-    "max-w-2xl mx-auto text-center space-y-8 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg p-8",
-  textSection: "space-y-4",
-  headingError: "text-8xl font-bold text-red-600 select-none",
-  headingContainer: "relative",
-  pageTitle: "text-4xl font-bold text-gray-900 mb-4",
-  description: "text-lg text-gray-600 max-w-md mx-auto leading-relaxed",
-  illustrationContainer: "flex justify-center py-8",
-  illustration: "relative animate-pulse",
-  errorCircle:
-    "w-24 h-24 bg-red-100 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-red-200",
-  errorIcon: "w-16 h-16 text-red-500",
-  warningBadge:
-    "absolute -top-2 -right-2 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center animate-bounce",
-  warningSymbol: "text-orange-500 text-xl font-bold",
-  buttonContainer:
-    "flex flex-col sm:flex-row gap-4 justify-center items-center",
-  button: "min-w-[160px] bg-red-600 hover:bg-red-700 text-white",
-  buttonContent: "flex items-center gap-2",
-  buttonIcon: "w-4 h-4",
-  outlineButton: "min-w-[160px] border-red-600 text-red-600 hover:bg-red-50",
-  errorDetails:
-    "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
-  errorTitle: "font-semibold mb-2",
-};
+// const styles = {
+//   container: "min-h-[calc(100vh-200px)] flex items-center justify-center p-4",
+//   content:
+//     "max-w-2xl mx-auto text-center space-y-8 bg-gradient-to-br from-red-50 to-orange-50 rounded-xl shadow-lg p-8",
+//   textSection: "space-y-4",
+//   headingError: "text-8xl font-bold text-red-600 select-none",
+//   headingContainer: "relative",
+//   pageTitle: "text-4xl font-bold text-gray-900 mb-4",
+//   description: "text-lg text-gray-600 max-w-md mx-auto leading-relaxed",
+//   illustrationContainer: "flex justify-center py-8",
+//   illustration: "relative animate-pulse",
+//   errorCircle:
+//     "w-24 h-24 bg-red-100 rounded-full flex items-center justify-center transition-all duration-300 hover:bg-red-200",
+//   errorIcon: "w-16 h-16 text-red-500",
+//   warningBadge:
+//     "absolute -top-2 -right-2 w-8 h-8 bg-orange-100 rounded-full flex items-center justify-center animate-bounce",
+//   warningSymbol: "text-orange-500 text-xl font-bold",
+//   buttonContainer:
+//     "flex flex-col sm:flex-row gap-4 justify-center items-center",
+//   button: "min-w-[160px] bg-red-600 hover:bg-red-700 text-white",
+//   buttonContent: "flex items-center gap-2",
+//   buttonIcon: "w-4 h-4",
+//   outlineButton: "min-w-[160px] border-red-600 text-red-600 hover:bg-red-50",
+//   errorDetails:
+//     "mt-8 p-4 bg-red-50 border border-red-200 rounded-lg text-left text-sm text-red-800",
+//   errorTitle: "font-semibold mb-2",
+// };
 
 
 interface ErrorPageProps {

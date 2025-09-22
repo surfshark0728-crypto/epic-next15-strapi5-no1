@@ -6,7 +6,6 @@ import type { TSummary } from "@/types";
 import { Input } from "@/components/ui/input";
 import { SubmitButton } from "@/components/custom/submit-button";
 import { DeleteButton } from "../custom/delete-button";
-import EditorWrapper from "../custom/editor/mdxeditor/editor-wrapper";
 
 import TiptapMDEditorWrapper from "../tiptap-templates/simple/editor-md-wrapper";
 import type { SummaryUpdateFormState, SummaryDeleteFormState } from "@/data/validation/summary";

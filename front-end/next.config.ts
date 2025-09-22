@@ -9,6 +9,11 @@ const nextConfig: NextConfig = {
         hostname: "localhost",
         port: "1337",
         pathname: "/uploads/**/*",
+      },
+      {
+        protocol: "https",
+        hostname: "decisive-leader-aa0f4e8f44.media.strapiapp.com",
+        pathname: "/**", // 업로드 파일 전체 허용        
       }
     ]
   }

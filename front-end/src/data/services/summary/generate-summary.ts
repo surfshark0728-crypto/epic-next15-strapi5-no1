@@ -14,12 +14,12 @@ export async function generateSummary(content: string, template?: string) {
     Keep the summary clear, well-structured, and easy to understand.
   `;
 
-  const systemPromptKo =
-    template ||
-    `당신은 유튜브 영상 대본을 간결하고 알기 쉽게 요약해 주는 유용한 도우미입니다. 
-     아래 대본을 요약할 때 핵심 포인트와 주요 아이디어를 중심으로 정리해 주세요. 
-     요약은 명확하고 체계적이며 이해하기 쉽게 작성해 주세요.
-    `;
+  // const systemPromptKo =
+  //   template ||
+  //   `당신은 유튜브 영상 대본을 간결하고 알기 쉽게 요약해 주는 유용한 도우미입니다. 
+  //    아래 대본을 요약할 때 핵심 포인트와 주요 아이디어를 중심으로 정리해 주세요. 
+  //    요약은 명확하고 체계적이며 이해하기 쉽게 작성해 주세요.
+  //   `;
 
   try {
     // OpenAI 모델을 이용해 요약 텍스트 생성

@@ -33,8 +33,8 @@ export function SummaryForm() {
   const [error, setError] = useState<IErrors>(INITIAL_STATE);
   const [value, setValue] = useState<string>("");
 
-  const [youtubeId, setYoutubeId] = useState<string>("");
-  const [toastId, setToastId] = useState<string | number | undefined>();
+  //const [youtubeId, setYoutubeId] = useState<string>("");
+  //const [toastId, setToastId] = useState<string | number | undefined>();
   const router = useRouter();
 
     async function handleFormSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -58,7 +58,7 @@ export function SummaryForm() {
         return;
     }
 
-    setYoutubeId(processedVideoId);
+    //setYoutubeId(processedVideoId);
     let currentToastId: string | number | undefined;
 
     try {
@@ -165,9 +165,9 @@ const errorStyles = error.message
 
   return (
     <div className="w-full flex-1 mx-4">
-      {youtubeId && <p className="text-center text-sm text-gray-500">유튜브 영상 ID: {youtubeId}</p>}
+      {/* {youtubeId && <p className="text-center text-sm text-gray-500">유튜브 영상 ID: {youtubeId}</p>}
       {toastId && <p className="text-center text-sm text-gray-500">toastId: {toastId}</p>}
-
+ */}
 
       <form
         onSubmit={handleFormSubmit}

@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
-import { requireAuthUser, safeRequireAuthUser } from "@/lib/auth-helpers";
+import {  safeRequireAuthUser } from "@/lib/auth-helpers";
 import { services } from "@/data/services";
-import { tr } from "zod/v4/locales";
 
 /**
  *

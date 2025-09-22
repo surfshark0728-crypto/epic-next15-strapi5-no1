@@ -8,14 +8,14 @@ interface IYouTubePlayerProps {
   videoId: string;
 }
 
-const styles = {
-  container: "relative w-full h-[315px] rounded-lg overflow-hidden",
-  skeletonWrapper: "absolute inset-0 w-full h-full",
-  skeleton: "w-full h-full animate-pulse",
-  iconContainer: "absolute inset-0 flex items-center justify-center",
-  playIcon: "w-16 h-16 text-gray-400 animate-bounce",
-  iframe: "rounded-lg",
-};
+// const styles = {
+//   container: "relative w-full h-[315px] rounded-lg overflow-hidden",
+//   skeletonWrapper: "absolute inset-0 w-full h-full",
+//   skeleton: "w-full h-full animate-pulse",
+//   iconContainer: "absolute inset-0 flex items-center justify-center",
+//   playIcon: "w-16 h-16 text-gray-400 animate-bounce",
+//   iframe: "rounded-lg",
+// };
 
 
 export default function YouTubePlayer({ videoId }: IYouTubePlayerProps  ) {

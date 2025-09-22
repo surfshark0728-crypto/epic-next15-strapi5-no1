@@ -1,6 +1,6 @@
 import YouTubePlayer from "@/components/custom/youtube-player";
 import { SummaryUpdateForm } from "@/components/forms/summary-update-form";
-import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
+//import { SimpleEditor } from "@/components/tiptap-templates/simple/simple-editor";
 import { loaders } from "@/data/loaders";
 import { validateApiResponse } from "@/lib/error-handler";
 import { extractYouTubeID } from "@/lib/utils";

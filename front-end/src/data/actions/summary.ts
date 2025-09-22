@@ -94,7 +94,7 @@ export async function updateSummaryAction(
     // try 블록에서 오류 발생 시
     return {
       success: false,
-      message: "Failed to update summary. Please try again.",
+      message: "Failed to update summary. Please try again. :"+error,
       strapiErrors: null,
       zodErrors: null,
       data: {
@@ -161,7 +161,7 @@ export async function deleteSummaryAction(
     // API 호출 실패 시
     return {
       success: false,
-      message: "Failed to delete summary. Please try again.",
+      message: "Failed to delete summary. Please try again. :"+error,
       strapiErrors: null,
       zodErrors: null,
       data: {

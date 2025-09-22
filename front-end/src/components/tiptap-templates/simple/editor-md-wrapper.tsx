@@ -100,8 +100,8 @@ export function TiptapMDEditorWrapper({
 }
 
 // ForwardRef 지원
-export const ForwardRefEditor = forwardRef<any, EditorWrapperProps>(
-  (props, ref) => <TiptapMDEditorWrapper {...props} />
+export const ForwardRefEditor = forwardRef<unknown, EditorWrapperProps>(
+  (props ) => <TiptapMDEditorWrapper {...props}  />
 );
 
 ForwardRefEditor.displayName = "ForwardRefEditor";
