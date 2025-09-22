@@ -7,8 +7,10 @@ export function cn(...inputs: ClassValue[]) {
 
 
 export function getStrapiURL() {
-  //return process.env.NEXT_PUBLIC_STRAPI_URL  || 'http://localhost:1337';
-  return process.env.STRAPI_URL  || 'http://localhost:1337';
+  //console.log("😍 getStrapiURL  :", process.env.STRAPI_UR)
+  return process.env.NEXT_PUBLIC_STRAPI_URL  ;
+  
+  //return process.env.STRAPI_URL ;
 }
 
 

@@ -9,6 +9,8 @@ type ApiOptions<P = Record<string, unknown>> = {
   authToken?: string;
 };
 
+export const TIMEOUT_MS=145000 // 기본 8초 8000, 15초 :15000, 45초 :45000
+
 /**
  * 타임아웃 및 인증이 포함된 범용 API 함수
  *
@@ -22,7 +24,7 @@ type ApiOptions<P = Record<string, unknown>> = {
 async function apiWithTimeout(
   input: RequestInfo,
   init: RequestInit = {},
-  timeoutMs = 15000 // 기본 8초 8000, 15초 :15000
+  timeoutMs = TIMEOUT_MS // 기본 8초 8000, 15초 :15000, 45초 :45000
 ): Promise<Response> {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), timeoutMs);
@@ -43,7 +45,7 @@ export async function apiRequest<T = unknown, P = Record<string, unknown>>(
   url: string,
   options: ApiOptions<P>
 ): Promise<TStrapiResponse<T>> {
-  const { method, payload, timeoutMs = 8000, authToken } = options;
+  const { method, payload, timeoutMs = TIMEOUT_MS, authToken } = options;
 
   // 기본 JSON 통신 헤더 설정
   const headers: Record<string, string> = {

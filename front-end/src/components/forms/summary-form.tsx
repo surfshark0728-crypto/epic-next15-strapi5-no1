@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { cn, extractYouTubeID } from "@/lib/utils";
 import { SubmitButton } from "../custom/submit-button";
 import { toast } from "sonner";
-import { api } from "@/data/data-api";
+import { api, TIMEOUT_MS } from "@/data/data-api";
 import { TranscriptSegment } from "@/data/services/summary/types";
 import { services } from "@/data/services";
 import { useRouter } from "next/navigation";
@@ -92,7 +92,7 @@ export function SummaryForm() {
         currentToastId = toast.loading("요약을 생성하는 중...");
         console.log("✅요약을 생성하는 중...");
         const summaryResponse =await api.post<string,{fullTranscript:string }>("/api/summarize",
-          {fullTranscript}, {timeoutMs: 120000 });
+          {fullTranscript}, {timeoutMs: TIMEOUT_MS });
 
         if(!summaryResponse.success){
             console.log("🤬 요약을 실패...",summaryResponse.error?.message)
