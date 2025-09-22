@@ -5,4 +5,6 @@ NEXT_PUBLIC_STRAPI_URL=http://localhost:1337
 
 #OpenAI 계정 로그인 ==> https://platform.openai.com/docs/overview 키 발급
 OPENAI_API_KEY = your_api_key_here;
-PAGE_SIZE=4
+PAGE_SIZE=8
+
+STRAPI_URL=
