@@ -12,6 +12,8 @@ import { safeRequireAuthToken } from "@/lib/auth-helpers";
  * &populate[blocks][on][layout.hero-section][populate][link][populate]=true
  */
 
+
+
 const baseUrl = getStrapiURL();
 
 async function getHomePageData(): Promise<TStrapiResponse<THomePage>> {
